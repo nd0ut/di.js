@@ -1,4 +1,4 @@
-import {toString} from './util';
+import {tokenToString} from './util';
 
 
 var IS_DEBUG = false;
@@ -23,7 +23,7 @@ function getUniqueId() {
 
 function serializeToken(token, tokens) {
   if (!tokens.has(token)) {
-    tokens.set(token, getUniqueId().toString());
+    tokens.set(token, getUniqueId().tokenToString());
   }
 
   return tokens.get(token);
@@ -32,7 +32,7 @@ function serializeToken(token, tokens) {
 function serializeProvider(provider, key, tokens) {
   return {
     id: serializeToken(key, tokens),
-    name: toString(key),
+    name: tokenToString(key),
     isPromise: provider.isPromise,
     dependencies: provider.params.map(function(param) {
       return {
@@ -55,7 +55,7 @@ function serializeInjector(injector, tokens, Injector) {
   var injectorClassId = serializeToken(Injector, tokens);
   serializedInjector.providers[injectorClassId] = {
     id: injectorClassId,
-    name: toString(Injector),
+    name: tokenToString(Injector),
     isPromise: false,
     dependencies: []
   };
