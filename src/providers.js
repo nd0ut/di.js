@@ -5,7 +5,7 @@ import {
   readAnnotations,
   hasAnnotation
 } from './annotations';
-import {isFunction, isObject, toString, isUpperCase, ownKeys} from './util';
+import {isFunction, isObject, tokenToString, isUpperCase, ownKeys} from './util';
 
 function isClass(clsOrFunction) {
 
@@ -75,7 +75,7 @@ class ClassProvider {
         SuperConstructor = Object.getPrototypeOf(constructor);
 
         if (SuperConstructor === EmptyFunction) {
-          throw new Error(`${toString(constructor)} does not have a parent constructor. Only classes with a parent can ask for SuperConstructor!`);
+          throw new Error(`${tokenToString(constructor)} does not have a parent constructor. Only classes with a parent can ask for SuperConstructor!`);
         }
 
         constructorInfo = [SuperConstructor, this.params.length];
@@ -136,7 +136,7 @@ class FactoryProvider {
 
     for (var param of params) {
       if (param.token === SuperConstructorAnnotation) {
-        throw new Error(`${toString(factoryFunction)} is not a class. Only classes with a parent can ask for SuperConstructor!`);
+        throw new Error(`${tokenToString(factoryFunction)} is not a class. Only classes with a parent can ask for SuperConstructor!`);
       }
     }
   }
