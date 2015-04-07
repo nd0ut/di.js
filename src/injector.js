@@ -5,7 +5,7 @@ import {
   Provide as ProvideAnnotation,
   TransientScope as TransientScopeAnnotation
 } from './annotations';
-import {isFunction, toString} from './util';
+import {isFunction, tokenToString} from './util';
 import {profileInjector} from './profiler';
 import {createProviderFromFnOrClass} from './providers';
 
@@ -18,7 +18,7 @@ function constructResolvingMessage(resolving, token) {
   }
 
   if (resolving.length > 1) {
-    return ` (${resolving.map(toString).join(' -> ')})`;
+    return ` (${resolving.map(tokenToString).join(' -> ')})`;
   }
 
   return '';
@@ -184,7 +184,7 @@ class Injector {
 
       if (provider.isPromise && !wantPromise) {
         resolvingMsg = constructResolvingMessage(resolving, token);
-        throw new Error(`Cannot instantiate ${toString(token)} synchronously. It is provided as a promise!${resolvingMsg}`);
+        throw new Error(`Cannot instantiate ${tokenToString(token)} synchronously. It is provided as a promise!${resolvingMsg}`);
       }
 
       if (!provider.isPromise && wantPromise) {
@@ -205,7 +205,7 @@ class Injector {
     if (!provider) {
       if (!this._parent) {
         resolvingMsg = constructResolvingMessage(resolving, token);
-        throw new Error(`No provider for ${toString(token)}!${resolvingMsg}`);
+        throw new Error(`No provider for ${tokenToString(token)}!${resolvingMsg}`);
       }
 
       return this._parent.get(token, resolving, wantPromise, wantLazy);
@@ -249,7 +249,7 @@ class Injector {
         } catch (e) {
           resolvingMsg = constructResolvingMessage(delayedResolving);
           var originalMsg = 'ORIGINAL ERROR: ' + e.message;
-          e.message = `Error during instantiation of ${toString(token)}!${resolvingMsg}\n${originalMsg}`;
+          e.message = `Error during instantiation of ${tokenToString(token)}!${resolvingMsg}\n${originalMsg}`;
           throw e;
         }
 
@@ -271,7 +271,7 @@ class Injector {
     } catch (e) {
       resolvingMsg = constructResolvingMessage(resolving);
       var originalMsg = 'ORIGINAL ERROR: ' + e.message;
-      e.message = `Error during instantiation of ${toString(token)}!${resolvingMsg}\n${originalMsg}`;
+      e.message = `Error during instantiation of ${tokenToString(token)}!${resolvingMsg}\n${originalMsg}`;
       throw e;
     }
 
@@ -282,7 +282,7 @@ class Injector {
     if (!wantPromise && provider.isPromise) {
       resolvingMsg = constructResolvingMessage(resolving);
 
-      throw new Error(`Cannot instantiate ${toString(token)} synchronously. It is provided as a promise!${resolvingMsg}`);
+      throw new Error(`Cannot instantiate ${tokenToString(token)} synchronously. It is provided as a promise!${resolvingMsg}`);
     }
 
     if (wantPromise && !provider.isPromise) {
