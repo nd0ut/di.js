@@ -41,6 +41,6 @@ export {
   isUpperCase,
   isFunction,
   isObject,
-  toString,
+  tokenToString,
   ownKeys
 };
