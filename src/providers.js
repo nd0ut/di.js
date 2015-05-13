@@ -15,9 +15,7 @@ function isClass(clsOrFunction) {
   else if(hasAnnotation(clsOrFunction, FactoryProviderAnnotation)) {
     return false
   }
-  else if (clsOrFunction.name) {
-    return isUpperCase(clsOrFunction.name.charAt(0));
-  } else {
+  else {
     return ownKeys(clsOrFunction.prototype).length > 0;
   }
 }
