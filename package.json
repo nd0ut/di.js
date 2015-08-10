@@ -17,7 +17,7 @@
     "gulp": "^3.5.6",
     "gulp-connect": "~1.0.5",
     "gulp-traceur": "vojtajina/gulp-traceur#traceur-as-peer",
-    "gulp-git": "vojtajina/gulp-git#hacked",
+    "gulp-git": "vojtajina/gulp-git#hacked"
   },
   "devDependencies": {
     "rtts-assert": "angular/assert",
