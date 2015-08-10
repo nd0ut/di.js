@@ -36,7 +36,7 @@
   },
   "scripts": {
     "test": "karma start --single-run",
-    "postinstall": "gulp build"
+    "postinstall": "./node_modules/.bin/gulp build"
   },
   "author": "Vojta Jína <vojta.jina@gmail.com>",
   "license": "Apache-2.0"
